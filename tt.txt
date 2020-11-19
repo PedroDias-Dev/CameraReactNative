@@ -1,0 +1,45 @@
+<Camera style={{ flex: 1 }} type={type} 
+        // ref={ref => {
+        //   this.camera = ref;
+        // }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'transparent',
+            flexDirection: 'row',
+          }}>
+          <TouchableOpacity
+            style={{
+              flex: 0.1,
+              alignSelf: 'flex-end',
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}>
+            
+            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+            
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={{
+                alignSelf: 'flex-end',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={snap}
+              
+              >
+
+            {/* <Button title="Tirar foto" style={{width: '100%'}} /> */}
+            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+
+          </TouchableOpacity>
+          
+        </View>
+      </Camera>
