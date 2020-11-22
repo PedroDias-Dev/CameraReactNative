@@ -9,6 +9,7 @@ export default function App() {
   // const [capturedImage, setCapturedImage] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [imagemUri, SetImagemUri] = useState(null);
+  const [imagem, SetImagem] = useState(null);
 
   let camera = Camera;
 
@@ -23,10 +24,41 @@ export default function App() {
     if (camera){
       let photo = await camera.takePictureAsync();
       alert('Foto tirada!')
-      console.log(photo);
+      console.log(photo.uri);
 
       SetImagemUri(photo.uri);
+      SetImagem(photo);
     }
+  }
+
+  const sendPhoto = () => {
+    let url = 'https://5f7f873fd6aabe00166f06be.mockapi.io/nyous/photo' 
+
+    // let formdata = new FormData();
+
+    // formdata.append('imagem', {
+    //   uri: imagemUri,
+    //   type: 'image/jpeg'
+    // });
+
+    console.log(imagem)
+
+    const bodySend = {
+      photo : imagem
+    } 
+
+    fetch(`${url}`,{
+        method : 'POST',
+        body : JSON.stringify(bodySend),
+        headers : {
+          'content-type' : 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Foto enviada com sucesso!')
+    })
+    .catch(err => console.log(err))
   }
 
   if (hasPermission === null) {
@@ -70,6 +102,7 @@ export default function App() {
       </Camera>
         <Image source={{uri : imagemUri}} style={{height : 300}} />
         <Button title="Tirar foto" onPress={() => snap()}/>
+        <Button title="Mandar foto" onPress={() => sendPhoto()}/>
     </View>
     
   );
